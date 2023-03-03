@@ -1,3 +1,5 @@
+#posortowana tablica
+
 def find(T,x):
 
     i = 0
@@ -10,6 +12,3 @@ def find(T,x):
             j+=1
         else:
             return i,j
-
-#odwracanie listy jednokierunkowej
-#ciag z brakującymi elementem (wyszukiwanie binarne)
