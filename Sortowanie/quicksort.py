@@ -12,8 +12,7 @@ def partition(tab, l, r):
 
     tab[greater], tab[pivot] = tab[pivot], tab[greater]  
             
-    return greater
-
+    return pivot
 def quicksort(tab, l, r):
 
     if l >= r: return
