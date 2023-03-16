@@ -1,10 +1,10 @@
-def partition(tab, r, l):
+def partition(tab, l, r):
 
-    pivot = l
+    pivot = r
 
-    greater = r
+    greater = l
 
-    for i in range(r, pivot):
+    for i in range(l, pivot):
 
         if tab[i] <= tab[pivot]:
             tab[i], tab[greater] = tab[greater], tab[i] 
