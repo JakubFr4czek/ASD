@@ -1,3 +1,5 @@
+inversions = 0
+
 def mergesort(tab, l, p):
     if l>=p: return
 
@@ -28,6 +30,8 @@ def mergesort(tab, l, p):
             tab[posTab] = arr1[pos1]
             pos1+=1
         elif arr1[pos1] > arr2[pos2]:
+            global inversions
+            inversions += s1 - pos1
             tab[posTab] = arr2[pos2]
             pos2+=1
         posTab +=1
@@ -41,5 +45,11 @@ def mergesort(tab, l, p):
         tab[posTab] = arr2[pos2]
         pos2+=1
         posTab+=1
+
+arr = [ 1, 20, 6, 4, 5 ]
+
+mergesort(arr, 0, len(arr) - 1)
+
+print(inversions)
 
 

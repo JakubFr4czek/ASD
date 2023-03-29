@@ -30,7 +30,7 @@ def heapsort(tab):
     #teraz mam poprawnie zbudowany kopiec
 
     for i in range(N - 1, -1, -1):
-        print(tab)
+        #print(tab)
         tab[0], tab[i] = tab[i], tab[0]
 
         heapify(tab, i, 0)
