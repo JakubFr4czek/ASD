@@ -4,8 +4,8 @@ def heapify(tab, N, i):
 
     #ustawiam największy element do rodzica
 
-    left = 2*i
-    right = 2*i + 1
+    left = 2*i + 1
+    right = 2*i + 2
 
     maks = i
 

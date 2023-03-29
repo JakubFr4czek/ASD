@@ -1,5 +1,3 @@
-inversions = 0
-
 def mergesort(tab, l, p):
     if l>=p: return
 
@@ -30,8 +28,6 @@ def mergesort(tab, l, p):
             tab[posTab] = arr1[pos1]
             pos1+=1
         elif arr1[pos1] > arr2[pos2]:
-            global inversions
-            inversions += s1 - pos1
             tab[posTab] = arr2[pos2]
             pos2+=1
         posTab +=1
@@ -46,14 +42,29 @@ def mergesort(tab, l, p):
         pos2+=1
         posTab+=1
 
-T = [10, 21, 54, 78, 9]
-mergesort(T, 0 ,len(T) - 1)
-print(T)
+def czy_suma(T, x):
 
-#arr = [ 1, 20, 6, 4, 5 ]
+    i = 0
+    j = len(T) - 1
 
-#mergesort(arr, 0, len(arr) - 1)
+    while i < j:
 
-#print(inversions)
+        if T[i] + T[j] < x:
+            i+=1
+        elif T[i] + T[j] > x:
+            j-=1
+        else:
+            return True
+    return False 
 
+def check( T ):
 
+    mergesort(T, 0, len(T) - 1)
+
+    for i in range(len(T)):
+
+        print(czy_suma(T, T[i]))
+
+T = [1,4,6,5,7,8,15,34,2,9,3]
+
+check(T)
