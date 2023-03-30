@@ -1,18 +1,14 @@
-def selectionsort(tab):
+def insertionSort( T ):
 
-    for i in range(len(tab)):
+    for i in range(1, len(T)):
+            
+            while T[i - 1] > T[i] and i > 0: #moge tak bo python nie psuje i z petli
+                  
+                  T[i - 1], T[i] = T[i], T[i - 1]
+                  i-=1
 
-        temp = i
 
-        for j in range(i + 1, len(tab)):
-
-            if tab[temp] > tab[j]:
-                temp = j
-
-        
-        tab[i], tab[temp] = tab[temp], tab[i]
-
-def bucektSort( T ):
+def bucketSort( T ):
 
     mini = min(T)
     maxi = max(T)
@@ -31,7 +27,7 @@ def bucektSort( T ):
         buckets[res].append(T[i])
 
     for i in range(len(buckets)):
-        selectionsort(buckets[i])
+        insertionSort(buckets[i])
 
     pos = 0
 
@@ -41,13 +37,7 @@ def bucektSort( T ):
             pos+=1
 
 
+T = [0.6, 0.23, 0.54, 0.43, 0.64, 0.41, 0.98, 0.76]
 
-
-
-
-
-
-arr = [9.8, 0.6, 10.1, 1.9, 3.07, 3.04, 5.0, 8.0, 4.8, 7.68]
-
-bucektSort(arr)
-print(arr)
+bucketSort( T )
+print(T) 
