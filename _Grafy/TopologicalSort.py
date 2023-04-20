@@ -1,53 +1,47 @@
-def AddEdge(G, pos, child):
+from collections import deque
 
-    if len(G) == pos:
-        G.append([])
+def dfs(G, v):
 
-    if child != -1:
-        G[pos].append(child)
-
-
-def TopologicalSort(G):
-
+    stack = deque()
+    res = deque()
     visited = [False for _ in range(len(G))]
 
-    dfs_stack = []
-    stack = []
-    path = []
+    stack.append(v)
+    visited[v] = True
 
-    for v in range(len(visited)):
+    while len(stack) > 0:
 
-        if visited[v] == True: continue
+        temp = stack[len(stack)-1]
+        #print(temp, end=' ') #bfs
 
-        dfs_stack.append(v)
-        visited[v] = True
+        sth = False
 
-        while len(dfs_stack) != 0:
+        for i in range(len(G[temp])): #od tylu bo chce po najmniejszych
 
-            temp = dfs_stack.pop()
-            cnt = 0
+            if visited[G[temp][i]] == False:
+                sth = True
+                stack.append(G[temp][i])
+                visited[G[temp][i]] = True
+                break
 
-            for i in range(len(G[temp]) -1 , -1 ,-1):
+        if sth == False:
+            res.append(temp)
+            stack.pop()
 
-                if visited[G[temp][i]] == False:
-                    cnt += 1
-                    dfs_stack.append(G[temp][i])
-                    visited[G[temp][i]] = True
-            if cnt == 0:
-                while len(path) != 0:
-                    stack.append(path.pop())
-                path.append(temp)
+    for i in range(len(res)):
+        print(res.pop(), end=' ')
 
+G = [
 
-    for i in range(len(stack) - 1, -1 ,-1):
-        print(stack[i], end = ' ')
+    [1,2],
+    [3,2],
+    [4],
+    [5],
+    [5],
+    [6,7],
+    [],
+    []
 
+]
 
-G = [[] for _ in range(5)]
-
-AddEdge(G, 0, 1)
-AddEdge(G, 0, 2)
-AddEdge(G, 1, 3)
-AddEdge(G, 3, 4)
-
-TopologicalSort( G )
+dfs(G, 0)
