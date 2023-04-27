@@ -3,7 +3,9 @@ from collections import deque
 
 #Zlozonosc: O(ElogV)
 #Najkrotsza sciezka w grafie wazonym, ale nie dopuszczamy ujemnych
+#DAG trzeba posortowac topologicznie
 
+#to jest prawdopodobnie bellman - ford
 def Dijkstra(G, v):
 
     distance = [inf for _ in range(len(G))] #Lista odleglosci od wierzcholka v do innych wierzcholkow
@@ -16,6 +18,7 @@ def Dijkstra(G, v):
 
     while len(queue) > 0:
 
+        #tutaj chyba wypada wziac wierzcholek do ktorego najblizej jest
         temp = queue.popleft()
 
         for i in range(len(G[temp])):
@@ -38,7 +41,7 @@ G1 = [
 
 ]
 
-G = [
+G2 = [
 
     [(4,3), (1,3)],
     [(2,1)],
@@ -46,7 +49,26 @@ G = [
     [(1,3)],
     [(5,2)],
     [(3,1), (0,6)]
+]
 
+G3 = [
+
+    [(1,2), (2,4)],
+    [(2,3), (3,3)],
+    [(4,4), (3,-1)],
+    [(4,2)],
+    []
+
+]
+
+G = [
+
+    [(1,5)],
+    [(4,9), (3,3)],
+    [(1,-4), (0,3)],
+    [(5,2), (4,3)],
+    [(2,-1), (5,-5)],
+    [(2,8), (0,9)]
 
 ]
 
