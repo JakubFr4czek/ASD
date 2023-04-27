@@ -1,15 +1,6 @@
 #Time: O(V + E)
 #Space: O(V + E)
 
-def AddEdge(G, pos, child):
-
-    if len(G) == pos:
-        G.append([])
-
-    if child != -1:
-        G[pos].append(child)
-
-
 def DFS(G, v):
 
     if len(G) == 0: return
@@ -33,13 +24,17 @@ def DFS(G, v):
                 visited[G[temp][i]] = True
 
 
-G = []
+G = [
 
-AddEdge(G, 0, 1)
-AddEdge(G, 0, 2)
-AddEdge(G, 1, 2)
-AddEdge(G, 2, 0)
-AddEdge(G, 2, 3)
-AddEdge(G, 3, 3)
+    [1,2],
+    [3,2],
+    [4],
+    [5],
+    [5],
+    [6,7],
+    [],
+    []
+
+]
 
 DFS(G, 0)
