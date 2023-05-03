@@ -4,27 +4,35 @@ from collections import deque
 #Najkrotsza sciezka, ale dopuszcza ujemne (w przeciwienstwie do Dijkstry)
 #Zlozonosc: O(VE)
 
+
 def Bellman_Ford(G, v):
 
+    #Inicjalizacja
     distance = [inf for _ in range(len(G))] #Lista odleglosci od wierzcholka v do innych wierzcholkow
     path = [-1 for _ in range(len(G))] #trackback dla kazdego wierzcholka
-
     distance[v] = 0 #dystans wierzcholka do samego siebie to 0
 
-    queue = deque()
-    queue.append(v)
+    #Relaksacja
+    for i in range(len(G) - 1):
+        
+        #Dla kazdej krawedzi
+        for j in range(len(G)):
+            for k in range(len(G[j])):
 
-    while len(queue) > 0:
+                if(distance[j] + G[j][k][1] < distance[G[j][k][0]]):
+                    distance[G[j][k][0]] = distance[j] + G[j][k][1]
+                    path[G[j][k][0]] = j
 
-        #tutaj chyba wypada wziac wierzcholek do ktorego najblizej jest
-        temp = queue.popleft()
+    #Weryfikacja
 
-        for i in range(len(G[temp])):
+    #Dla kazdej krawedzi
+    for j in range(len(G)):
+            for k in range(len(G[j])):
+                if distance[j] + G[j][k][1] < distance[G[j][k][0]]:
+                    return -1
+                      
 
-            if distance[temp] + G[temp][i][1] < distance[G[temp][i][0]]:
-                distance[G[temp][i][0]] = distance[temp] + G[temp][i][1]
-                path[G[temp][i][0]] = temp
-                queue.append(G[temp][i][0])
+                
     
     print(distance)
     print(path)
