@@ -41,7 +41,6 @@ def Dijkstra(G, v):
 
     while len(queue) > 0:
 
-        heapifyMin(queue, 0, len(queue))
         temp = queue.popleft()
         temp = temp[0]
         #szukam krawedzi o najmniejszym czasie dojscia
@@ -51,6 +50,7 @@ def Dijkstra(G, v):
 
                 if distance[G[temp][i][0]] == inf:
                     queue.append((G[temp][i][0], G[temp][i][1]))
+                    heapifyMin(queue, 0, len(queue)) 
 
                 distance[G[temp][i][0]] = distance[temp] + G[temp][i][1]
                 path[G[temp][i][0]] = temp
