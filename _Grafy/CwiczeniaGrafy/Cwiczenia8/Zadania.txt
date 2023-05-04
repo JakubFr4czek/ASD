@@ -1,0 +1,11 @@
+1.Domkniecie przechodnie, musimy polaczyc wszystkie wierzcholki bezposrednio takie miedzy ktorymi dalo sie wczesniej przejsc
+
+2.Zaimplementowac Kruskala
+
+3.Cykl o najmniejszej sumie wag (skierowany i wazony)
+
+4.Transport atomowy: Graf pełny i ważony. DLa każdej pary wierzchołkow (x,y)eV jest najkrotsza sciezka z x do y. Liczba d, wieksza niz waga krawedzi st.
+Technik bedzie chcial przejechac z s do t. A drugi transportuje w przeciwnym kierunku z t do s. W kazdej turze przemieszczaja sie po jednym ruchu.
+Nie moga sie zblizyc na mniej niz "d"
+
+5.Auto pali 1 litr na kilometr, startujemy z pustym/pelnym bakiem
