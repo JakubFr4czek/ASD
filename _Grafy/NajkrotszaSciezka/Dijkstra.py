@@ -43,6 +43,7 @@ def Dijkstra(G, v):
 
         temp = queue.popleft()
         temp = temp[0]
+        heapifyMin(queue, 0, len(queue))
         #szukam krawedzi o najmniejszym czasie dojscia
 
         for i in range(len(G[temp])):

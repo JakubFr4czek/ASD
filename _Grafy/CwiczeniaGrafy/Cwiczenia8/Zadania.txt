@@ -2,7 +2,7 @@
 
 2.Zaimplementowac Kruskala
 
-3.Cykl o najmniejszej sumie wag (skierowany i wazony)
+3.Cykl o najmniejszej sumie wag (skierowany (Kruskal nie zadziala) i wazony), Trzeba wykorzystac Floyda-Warshalla
 
 4.Transport atomowy: Graf pełny i ważony. DLa każdej pary wierzchołkow (x,y)eV jest najkrotsza sciezka z x do y. Liczba d, wieksza niz waga krawedzi st.
 Technik bedzie chcial przejechac z s do t. A drugi transportuje w przeciwnym kierunku z t do s. W kazdej turze przemieszczaja sie po jednym ruchu.
