@@ -54,7 +54,7 @@ def Kruskal( G ):
     for i in range((len(G)//2)-1, -1, -1):
         heapifyMin(G, i, len(G))
 
-    #II. A - zbiro pusty, przegladam w kolejnosci nierosnacej
+    #II. A - zbior pusty, przegladam w kolejnosci nierosnacej
     
     A = []
 
@@ -70,7 +70,7 @@ def Kruskal( G ):
         #2 krok heapsort
         G[0], G[len(G) - 1] = G[len(G) -1], G[0]
         G.pop()
-        heapifyMin(G, i, len(G))
+        heapifyMin(G, 0, len(G))
 
         k1 = findSet(parent, v1)
         k2 = findSet(parent, v2)
@@ -84,25 +84,11 @@ def Kruskal( G ):
 
     return A
 
-
-#Ten sam graf w wersji z lista sasiedztwa
-'''G = [
-
-    [(1,1), (4,4), (5, 8)],
-    [(0,1), (2,3)],
-    [(1,3), (4,4), (3,6)],
-    [(2,6), (4,2)],
-    [(0,4), (2,4), (3,2), (5,7)],
-    [(0,8), (4,7)]
-
-]
-'''
-
 G = [
 
     (0,1,1),
     (1,2,3),
-    (0,4,5),
+    (0,4,4),
     (2,4,4),
     (0,5,8),
     (2,3,4),
