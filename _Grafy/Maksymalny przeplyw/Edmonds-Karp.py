@@ -34,7 +34,7 @@ def EdmondsKarp(M, s, t):
         temp = t
         mini = float('inf')
 
-        while temp != -s:
+        while temp != s:
             mini = min(mini, M[path[temp]][temp])
             temp = path[temp]
         temp = t
