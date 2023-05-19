@@ -26,19 +26,12 @@ def FloydWarshall( G ):
     for i in range(len(distance)): #Chcemy to zrobic n-razy
         for j in range(len(distance)):
             for k in range(len(distance)):
-                if j != i and i != k: #Nie jestem pewny tego
+                #if j != i and i != k: #Nie jestem pewny tego
                     if distance[j][i] + distance[i][k] < distance[j][k]:
                         distance[j][k] = distance[j][i] + distance[i][k]
                         parent[j][k] = parent[i][k]
 
-    #Wypisuje / mozna poprostu zwrocic
-    for i in range(len(distance)):
-        print(distance[i])
-
-    print("")
-
-    for i in range(len(distance)):
-        print(parent[i])
+    return distance
     
 
 
@@ -52,4 +45,4 @@ G = [
 
 ]
 
-FloydWarshall( G )
+print(FloydWarshall( G ))

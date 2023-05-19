@@ -1,89 +1,40 @@
-from collections import deque
-#Zlozonosc O(ElogV)
-#Trzeba uzyc kolejki priorytetowej -> minHeap
-#Tu bedzie spoko macierzowo zrobic
+from queue import PriorityQueue
 
-def left(i):
-    return 2*i + 1
+def Prim(G, v):
 
-def right(i):
-    return 2*i + 2
+    path = [-1 for _ in range(len(G))]
+    distance = [ float('inf') for _ in range(len(G))]
+    queue = PriorityQueue()
 
-def heapifyMin(T, pos, N, distance):
-
-    l = left(pos)
-    r = right(pos)
-
-    mini = pos
-
-    if l < N and distance[T[l]] < distance[T[mini]]:
-        mini = l
-
-    if r < N and distance[T[r]] < distance[T[mini]]:
-        mini = r
-    
-    if mini != pos:
-        T[pos], T[mini] = T[mini], T[pos]
-        heapifyMin(T, mini, N, distance)
-
-#v - wierzcholek startowy
-def Prim(M, v):
-
-    distance = [float('inf') for _ in range(len(M))]
-    parent = [-1 for _ in range(len(M))]
-    queue = deque()
-
-    #Dystans do samego siebie to 0
     distance[v] = 0
-    queue.append(v) #Tak czy tak bedzie pierwszy
+    queue.put(v, 0)
 
-    #Umieszczam wszystkie wierzcholki w kolejce z odlegloscia inf
-    for i in range(len(M)): #len(G) to liczba wierzcholkow, czyli O(v)
-        if i != v:
-            queue.append(i) #Tu i tak kazdy ma odleglosc inf, to nie trzeba heapify
+    while not queue.empty():
+        temp = queue.get()
 
-    while len(queue) > 0:
-        temp = queue.popleft()
-        heapifyMin(queue, 0, len(queue), distance) #Tu nie wiem czy trzeba heapify
+        for i in range(len(G[temp])):
+            
+            if G[temp][i][1] < distance[G[temp][i][0]]:
+                
+                if distance[G[temp][i][0]] == float('inf'):
+                    distance[G[temp][i][0]] = G[temp][i][1]
+                    queue.put(G[temp][i][0], distance[G[temp][i][0]])
+                else:
+                    distance[G[temp][i][0]] = G[temp][i][1]
 
-        for i in range(len(queue)):
-            x = queue[i]
-            if M[temp][x] < distance[x]:
-                distance[x] = M[temp][x]
-                parent[x] = temp
-                heapifyMin(queue, 0, len(queue), distance)
+                path[G[temp][i][0]] = temp
 
-    print(distance)
-    print(parent)
+    return path    
 
 G = [
 
-    (0,1,1),
-    (1,2,3),
-    (0,4,4),
-    (2,4,4),
-    (0,5,8),
-    (2,3,4),
-    (4,5,7),
-    (3,4,2)
+    [(1,1), (4,5), (5,8)],
+    [(0,1), (2,3)],
+    [(1,3), (4,4), (3,6)],
+    [(2,6), (4,2)],
+    [(0,5), (2,4), (3,2), (5,7)],
+    [(0,8), (4,7)]
 
 ]
 
-maxi = -1
-
-for i in range(len(G)):
-    if G[i][0] > maxi:
-        maxi = G[i][0]
-    if G[i][1] > maxi:
-        maxi = G[i][1]
-
-maxi+=1
-
-M = [ [ float('inf') for j in range(maxi)] for i in range(maxi)]
-
-for i in range(len(G)):
-    M[G[i][0]][G[i][1]] = G[i][2]
-    M[G[i][1]][G[i][0]] = G[i][2]
-
-Prim(M, 0)
-
+print(Prim(G, 0))

@@ -1,83 +1,50 @@
-from math import inf
-from collections import deque
-
-#Najkrotsza sciezka, ale dopuszcza ujemne (w przeciwienstwie do Dijkstry)
-#Zlozonosc: O(VE)
+#O(VE)
 
 
 def Bellman_Ford(G, v):
 
-    #Inicjalizacja
-    distance = [inf for _ in range(len(G))] #Lista odleglosci od wierzcholka v do innych wierzcholkow
-    path = [-1 for _ in range(len(G))] #trackback dla kazdego wierzcholka
-    distance[v] = 0 #dystans wierzcholka do samego siebie to 0
+    #I - Inicjalizacja
+    distance = [float('inf') for i in range(len(G))]
+    path = [-1 for i in range(len(G))]
 
-    #Relaksacja
+    distance[v] = 0
+
+    #II - Relaksacja kazdej kwaredzi len(G) - 1 razy
+
     for i in range(len(G) - 1):
-        
-        #Dla kazdej krawedzi
-        for j in range(len(G)):
-            for k in range(len(G[j])):
 
-                if(distance[j] + G[j][k][1] < distance[G[j][k][0]]):
+        #Iteracja po kazdej krawedzi
+        for j in range(len(G)):#j to jest moj rodzic
+            for k in range(len(G[j])):  
+
+                if distance[G[j][k][0]] > distance[j] + G[j][k][1]:
                     distance[G[j][k][0]] = distance[j] + G[j][k][1]
                     path[G[j][k][0]] = j
 
-    #Weryfikacja
-
-    #Dla kazdej krawedzi
-    for j in range(len(G)):
-            for k in range(len(G[j])):
-                if distance[j] + G[j][k][1] < distance[G[j][k][0]]:
-                    return -1
-                      
-
-                
+    #III - Weryfikacja ujemnych cykli, jesli sa to nie ma najmniejszej sciezki
     
-    print(distance)
-    print(path)
+    for i in range(len(G)):
+        for j in range(len(G[i])):
+            if distance[G[i][j][0]] > distance[i] + G[i][j][1]:
+                return []
 
-G1 = [
+    return path
 
-    [(1,2), (3,4)],
-    [(3,3), (2,3)],
-    [(4,2)],
-    [(2,3), (4,4)],
-    []
 
-]
 
-G2 = [
-
-    [(4,3), (1,3)],
-    [(2,1)],
-    [(3,3), (5,1)],
-    [(1,3)],
-    [(5,2)],
-    [(3,1), (0,6)]
-]
-
-G3 = [
-
-    [(1,2), (2,4)],
-    [(2,3), (3,3)],
-    [(4,4), (3,-1)],
-    [(4,2)],
-    []
-
-]
 
 G = [
 
-    [(1,5)],
-    [(4,9), (3,3)],
-    [(1,-4), (0,3)],
-    [(5,2), (4,3)],
-    [(2,-1), (5,-5)],
-    [(2,8), (0,9)]
+    [(1,1), (2,8)],
+    [(3,1)],
+    [(3,3)],
+    [(4,4)],
+    [(5,10)],
+    [(6,8), (8,15)],
+    [(8,1),(7,1)],
+    [(8,1)],
+    []
 
 ]
 
-Bellman_Ford(G, 0)
-
-
+print(Bellman_Ford(G, 0))
