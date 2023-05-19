@@ -5,7 +5,7 @@ def DFS(G):
     def DFSVisit(G, v):
 
         nonlocal time
-        time += 1
+        time += 1 #Czas odwiedzenia
 
         visited[v] = True
 
@@ -17,7 +17,7 @@ def DFS(G):
                 path[G[v][i]] = v
                 DFSVisit(G,G[v][i])
 
-        time += 1 #Tak jakos lepiej to liczy jak jest zakomentowane
+        time += 1 #Czas przerworzenia
 
 
     visited = [False for _ in range(len(G))]
