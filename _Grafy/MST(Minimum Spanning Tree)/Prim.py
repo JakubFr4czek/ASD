@@ -1,4 +1,5 @@
 from queue import PriorityQueue
+#Do poprawy
 
 def Prim(G, v):
 

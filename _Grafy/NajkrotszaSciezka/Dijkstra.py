@@ -1,30 +1,28 @@
 from queue import PriorityQueue
 #O(ElogV)
-
+#Poprawiony (Wreszcie)
 
 def Dijkstra(G, v):
 
-    path = [-1 for _ in range(len(G))]
     distance = [float('inf') for _ in range(len(G))]
+    path = [-1 for _ in range(len(G))]
     queue = PriorityQueue()
 
     distance[v] = 0
-    queue.put(v, 0)
+    queue.put((0, v))
 
     while not queue.empty():
-        temp = queue.get()
 
-        for i in range(len((G[temp]))):
+        priotity, temp = queue.get()
+
+        for i in range(len(G[temp])):
 
             if distance[G[temp][i][0]] > distance[temp] + G[temp][i][1]:
-
-                if distance[G[temp][i][0]] == float('inf'):
-                    queue.put(G[temp][i][0], G[temp][i][1])
-
                 distance[G[temp][i][0]] = distance[temp] + G[temp][i][1]
+                queue.put((distance[G[temp][i][0]], G[temp][i][0]))
                 path[G[temp][i][0]] = temp
-            
-    return path
+
+    return distance
 
 
 G = [
