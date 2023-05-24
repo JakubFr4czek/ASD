@@ -29,6 +29,8 @@ def DFS(G, order, flaga): #order to lista ktora mowi w jakiej kolejnosci odwiedz
 
     time = 0 #czas przetworzenia wierzcholka
 
+    silneRes = deque()
+
     for i in range(len(G)):
 
         if visited[order[i]] == False:
@@ -36,8 +38,11 @@ def DFS(G, order, flaga): #order to lista ktora mowi w jakiej kolejnosci odwiedz
             SilnieSpojne.append(order[i]) #jak odpalam, to ten wierzcholek tez trzeba policzyc
             DFSVisit(G, order[i])
             if(flaga):
-                print(SilnieSpojne)
+                #print(SilnieSpojne)
+                silneRes.append(SilnieSpojne)
                 SilnieSpojne = deque()
+
+    if flaga: return silneRes
 
     return processed
 
@@ -66,14 +71,16 @@ def SilnieSpojneSkladowe( G ):
     while len(processed) > 0:
         order.append(processed.pop())
 
-    DFS(G, order, True)
+    silnieSpojneSkladowe = DFS(G, order, True)
 
 
 
 
 
 
-G = [
+
+
+'''G = [
 
     [1],
     [2],
@@ -86,6 +93,23 @@ G = [
     [5,9],
     [10],
     [7]
+
+]'''
+
+
+G = [
+
+    [1,3],
+    [2,10],
+    [3],
+    [4],
+    [2,5],
+    [2],
+    [9],
+    [6],
+    [7],
+    [8],
+    [0,9]
 
 ]
 

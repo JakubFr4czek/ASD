@@ -1,0 +1,23 @@
+def Dijkstra(G, v):
+
+    path = [-1] * len(G)
+    distance = [float('inf')] * len(G)
+    queue = PriorityQueue()
+
+    distance[v] = 0
+    queue.put((0, v))
+
+    while not queue.empty() > 0:
+
+        priority, temp = queue.get()
+
+        for i in range(len(G[temp])):
+
+            if G[temp][i] != -1:
+                if distance[i] > distance[temp] + G[temp][i]:
+                    distance[i] = distance[temp] + G[temp][i]
+                    path[i] = temp
+                    queue.put((distance[i], i))
+
+    print(path)
+    print(distance)
