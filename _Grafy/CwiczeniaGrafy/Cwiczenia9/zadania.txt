@@ -1,0 +1,23 @@
+1. Mam 2 fabryki o zd produkcyjniej i 3 skleopy o zapotrzebowaniu
+spinam fabryki ze soba i sklepy ze soba i na krawedzicha daje zd produkcyjna i zapotrzebowanie
+
+2. graf ma spojnosc k, jesli po usunieciu k krawedzi on sie rozspójnia, usuniecie k-1 krawedzi nie powoduje rozspójnienia
+minimalny przekroj cos
+wybieram zrodlo i dal kazdego innego sprawdzic jakby on byl ujsciem i sprawdzic przeplyw i wybrac najmniejszy
+
+3. czy da sie znalezc takie zmienne zeby formula byla prawdziwa w jakims przypadku
+literał - zmienna albo zanegowana zmienna
+(pvpv~z)^(~qvpv~u)
+klauzula to te nawiasy pomiedzy koniunkcja
+Kazda zmienna moze wystapic max 2 razy
+czy da asie tak poustawaiac wartosci zmiennych zeby byla speln;iona
+upraszczam, jak jest jedno wystapienie to daje na 1, dwa takie same to daje 1, gorzej jak dwie rozne
+chce zeby kazda zmienna spelniala jedna klauzule
+
+4.Graf, poczatek i koniec, żadne dwie sciezki nie maja wspolnego wiercholka
+
+5.Maksymalny przeplyw w grafie nieskierowanym, bobo mozna rozdzielic i dodac wierzcholek pomiedzy
+
+6.Maksymalne skojarzenie w drzewie
+maks krawedzi takie ze kazdy wierzcholek dotyka jednej krawedzi
+kazdy graf da sie przedstawic jako graf dwudzielny
