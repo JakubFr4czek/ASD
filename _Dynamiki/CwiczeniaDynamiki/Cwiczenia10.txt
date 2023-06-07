@@ -1,0 +1,55 @@
+1. Wedrowka po szachownicy NxN
+-startowy w lewyn gornym, koncowy w prawym dolnym
+-kazde pole ma koszt, mozna sie poruszac w dol i prawo tylko
+-policzyc najtansza sciezke
+
+S: Bierzemy minimum z gornego i lewego kwadracika i bierzemy minimum
+ 
+2. Wydawanie monet (Metoda zachlanna dziala, jesli nominaly sa przynajmniej 2x wieksze od siebie, tutaj nie mozna)
+- N = [] tablica nominalow
+- T - kwota do wydania
+- inf monet kazdego nominalu
+- wydac T, aby uzyc jak najmniej monet
+
+S: Robie tablice od 1 do kwoty i szukam minimum
+
+3. Suma podzbioru
+- tablic A liczb naturalnych (Nie sa unikalne, ani posortowane), suma T
+- Czy mozna znalezc podzbior zbioru A, zeby sie zsumowal do T
+
+S: dp 2D, j to suma jaka mozna otrzymac, a i to suma od indeksow 0..i
+
+4.  NWP (Najsluzszy wspolny podciag)
+- Ciag liczb A,B - n-elementowe
+- Podciag o najdluzszej dlugosci, taki ze jest podciagiem A oraz B
+A = [2, 7, 3, 5, 10, 7]
+B = [3, 4, 2, 7, 5, 7]
+Odp: 2,7,5,7
+0
+S: Ta sama liczba i litera na i-tej(gora) i j-tej(lewo) pozycj to zwiekszam o 1 (Podobnie jak w szachownicy), tablica 2D (slowo  na gorze, a B na lewo)
+
+5.1 Najdluzszy podciag rosnacy
+A = [2, 7, 3, 5, 10, 7]
+Odp1: 2, 3, 5, 7
+Odp2: 2, 3, 5, 10
+
+S:(Algorytm LIS z wykladu) O(n^2)
+
+5.2
+O(nlogn)
+B = [inf. inf, inf,...]
+daje 2 na 0 i szukam 1 elementu wiekszego od 7 itd
+res: B = [2,3,5,7,inf,inf]
+
+S: na replit
+
+6. Mnozenie Macierzy
+A = [M1, M2, M3, ...]
+- nie sa wszystkie kwadratowe (wysokosc1 = szerokosc2, zeby sie dalo pomnozyc)
+- podane wymiary w krotce: M1 = (w1, h1), M2 = ...
+- Mnozenie macierzy jest laczne, 
+- Czas to wymiar macierzy
+- W jakiej kolejnoscy pomnozyc, zeby byl najmniejszy czas
+2 x 1, 1 x 3, 3 x 3
+
+S: Trzy petle, 
