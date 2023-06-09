@@ -16,9 +16,6 @@ def lis( A ):
     return max(C)
 
 
-
-
-
 A = [2,1,4,3,1,5,2,7,8,3] 
 
 print(lis(A))
