@@ -25,8 +25,8 @@ S: dp 2D, j to suma jaka mozna otrzymac, a i to suma od indeksow 0..i
 A = [2, 7, 3, 5, 10, 7]
 B = [3, 4, 2, 7, 5, 7]
 Odp: 2,7,5,7
-0
-S: Ta sama liczba i litera na i-tej(gora) i j-tej(lewo) pozycj to zwiekszam o 1 (Podobnie jak w szachownicy), tablica 2D (slowo  na gorze, a B na lewo)
+
+S: Ta sama liczba i litera na i-tej(gora) i j-tej(lewo) pozycj to zwiekszam o 1 (Podobnie jak w szachownicy), tablica 2D (slowo A na gorze, a B na lewo)
 
 5.1 Najdluzszy podciag rosnacy
 A = [2, 7, 3, 5, 10, 7]
