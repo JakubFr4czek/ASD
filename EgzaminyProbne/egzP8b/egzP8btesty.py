@@ -3,23 +3,48 @@ import sys
 from copy import deepcopy
 import time
 from random import random, randint, seed, shuffle
-ALLOWED_TIME = 0.5
+ALLOWED_TIME = 10
 
 global k_seed
 k_seed = 0
 
+
+class Node:
+  def __init__(self, val, parent):
+    self.left = None
+    self.right = None
+    self.parent = parent
+    self.key = val
+    self.x = None
+  
+  def __add__(self, other):
+    return Node(self.key + other.val, None)
+
+  def __mul__(self, other):
+    return NotImplemented
+
+  def __rmul__(self, other):
+    return Node(self.key * other, None)
+
+  def __eq__(self, other):
+    if type(self) == Node and type(other) == Node:
+      return self.key == other.val
+    else:
+      return False
+
+
 TEST_SPEC = [
-#    n,         len_T,      len_Q
-    (0,         0,          0),
-    (5,         10,         4),
-    (10,        50,         10),
-    (25,        7500,       2500),
-    (40,        12000,      3000),
-    (50,        15000,      4000),
-    (60,        18000,      5000),
-    (70,        21000,      6000),
-    (80,        24000,      7000),
-    (90,        27000,      8000),
+#    n,   m,      r,    p,    hint
+    (0,   0,      0,    0,    6),
+    (10,  40,     10,   4,    14),
+    (15,  100,    20,   13,   39),
+    (20,  100,    20,   8,    48),
+    (50,  1000,   70,   12,   100),
+    (75,  3000,   100,  60,   411),
+    (100, 4000,   150,  30,   363),
+    (150, 6000,   300,  120,  2071),
+    (200, 15000,  500,  90,   2237),
+    (300, 100000, 4000, 170,  12197)
 ]
 
 
@@ -31,52 +56,38 @@ def randint_seed(a, b):
   return output
 
 
-def gentest(n, len_T, len_Q):
+def gentest(n, m, r, p, hint):
     global k_seed
-    T = None
-    Q = None
+    G = None
+    P = None
     if n == 0:
-        T = [
-            [1, 0, 2], #0
-            [2, 0], #1
-            [1, 0]  #2
-        ]
-        Q = [
-            [0],
-            [],
-            []
-        ]
+      G = [
+        [(1, 3), (2, 3)],
+        [(0, 3), (4, 4)],
+        [(0, 3), (3, 1), (4, 4)],
+        [(2, 1), (4, 2)],
+        [(1, 4), (2, 4), (3, 2)]
+      ]
+      P = [0, 3, 4]
     else:
-        T = [[] for _ in range(n)]
-        Q = [[] for _ in range(n)]
-        vec = 0
-        next_vec = None
+      K = [[inf for _ in range(n)] for _ in range(n)]
+      for _ in range(m):
+        x = randint_seed(0, n - 1)
+        y = randint_seed(0, n - 1)
+        v = randint_seed(1, r)
+        K[x][y] = v
+        K[y][x] = v
 
-        for _ in range(len_T):
-            next_vec = randint_seed(0, n - 1)
-            T[vec].append(next_vec)
-            vec = next_vec
-        T[next_vec].append(0)
-        vec = 0
+      G = [[] for _ in range(n)]
+      for i in range(n):
+        for j in range(n):
+          if K[i][j] != inf:
+            G[i].append((j, K[i][j]))
 
-        for _ in range(len_Q):
-            next_vec = randint_seed(0, n - 1)
-            T[vec].append(next_vec)
-            Q[vec].append(next_vec)
-            vec = next_vec
-        T[next_vec].append(0)
-        Q[next_vec].append(0)
+      P = [randint_seed(0, n - 1) for _ in range(p)]
+      P = list(dict.fromkeys(P))
 
-    for i in range(n):
-        T[i].append((i + 1) % n)
-
-    for el in T:
-        shuffle(el)
-
-    for el in Q:
-        shuffle(el)
-     
-    return [T, Q]
+    return [G, P], hint
 
 
 RERAISE = True
@@ -87,7 +98,7 @@ def print_err(*a):
 # format testów
 # TESTS = [ {"arg":arg0, "hint": hint0}, {"arg":arg1, "hint": hint1}, ... ]
 
-def limit(L, lim = 80):
+def limit(L, lim = 120):
     x = str(L)
     if len(x) < lim:
         return x
@@ -116,20 +127,21 @@ def internal_runtests( copyarg, printhint, printsol, check, generate_tests, all_
   # E - Exception when solving
   # O - Terminated by operator
   status_line = ''
+
   total  = len(TESTS)
   total_time = 0
   for i,d in enumerate(TESTS):
     print("-----------------")
     print("Test", i )
     arg  = copyarg(d["arg"])
-    T = deepcopy(arg[0])
-    Q = deepcopy(arg[1])
+    hint = deepcopy(d["hint"])
+    printhint( hint )
     try:
       time_s = time.time()
-      sol = f(*arg)
+      sol    = f(*arg)
+      printsol(sol)
       time_e = time.time()
-      res = check(T, Q, sol)
-      printhint(sol)
+      res = check(hint, sol)
       if ACC_TIME > 0 and float(time_e-time_s) > ACC_TIME:
         timeout += 1
         status_line += ' T'
@@ -140,8 +152,8 @@ def internal_runtests( copyarg, printhint, printsol, check, generate_tests, all_
         print("Test zaliczony!")
       else:
         answer += 1
-        print("TEST NIEZALICZONY!!!")
         status_line += ' W'
+        print("TEST NIEZALICZONY!!!")
       print("Orientacyjny czas: %.2f sek." % float(time_e-time_s))
         
       total_time += float(time_e-time_s)
@@ -171,43 +183,14 @@ def internal_runtests( copyarg, printhint, printsol, check, generate_tests, all_
 def copyarg(arg):
     return deepcopy(arg)
 
-def printhint(sol):
-    print(f"Otrzymany wynik: {limit(sol)}")
+def printhint(hint):
+    print("Oczekiwany wynik: ", hint)
 
 def printsol(sol):
-  pass
+    print("Otrzymany wynik:  ", sol)
 
-def check(T, Q, sol):
-    n = len(T)
-    k = 1
-    for el in T:
-        k += len(el)
-    for el in Q:
-        k -= len(el)
-
-    if len(sol) != k:
-        return False
-
-    A = [[0 for _ in range(n)] for _ in range(n)]
-    A[0][0] += 1
-    for i in range(n):
-        for el in T[i]:
-            A[i][el] += 1
-        if len(Q[i]):
-            for el in Q[i]:
-                A[i][el] -= 1
-
-    vec = 0
-    for i in range(len(sol)):
-        A[vec][sol[i % len(sol)]] -= 1
-        vec = sol[i]
-
-    for row in A:
-        for el in row:
-            if el != 0:
-                return False
-
-    return True
+def check(hint, sol):
+    return hint == sol
     
 def generate_tests(num_tests = None):
     global TEST_SPEC
@@ -218,8 +201,9 @@ def generate_tests(num_tests = None):
 
     for spec in TEST_SPEC:
         newtest = {}
-        arg = gentest(*spec)
+        arg, hint = gentest(*spec)
         newtest["arg"] = arg
+        newtest["hint"] = hint
         TESTS.append(newtest)
               
     return TESTS

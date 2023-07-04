@@ -1,80 +1,54 @@
-#Listowo: O(E + V)
+#Dla listy sasiedztwa
 
-def DFS_first(G):
+def DFS(G, dist, low):
 
-    def DFSVisit(G, v):
 
-        nonlocal time
-        time += 1 #Czas odwiedzenia
+    def DFSVisit(G, v, parent):
+
+        nonlocal dystans
+        dist[v] = dystans
+        dystans += 1
 
         visited[v] = True
-        low[v] = time #czas przetworzenia nadany przez dfs
-        
+
+        dziecko_w_dfs = -1 #jedyne dziecko w dfs
 
         for i in range(len(G[v])):
 
             if visited[G[v][i]] == False:
-                path[G[v][i]] = v
-                DFSVisit(G,G[v][i])
-
-        time += 1 #Czas przerworzenia
-
-    visited = [False for _ in range(len(G))]
-    path = [-1 for _ in range(len(G))]
-    low = [float('inf') for _ in range(len(G))]
-
-    time = 0 #czas przetworzenia wierzcholka
-
-    for i in range(len(G)):
-
-        if visited[i] == False:
-            DFSVisit(G, i)
-
-    return low, path
-
-def DFS_second(G, path, low):
-
-    def DFSVisit(G, v):
-
-        visited[v] = True   
-
-        for i in range(len(G[v])):
-
-            if visited[G[v][i]] == False:
-                DFSVisit(G,G[v][i])
+                dziecko_w_dfs = G[v][i]
+                DFSVisit(G,G[v][i], v)
 
         #Wierzcholek przetworzony
-        mini = low[v]
 
-        if path[v] != -1:
+        low[v] = dist[v]
 
-            for i in range(len(G[v])):
-                if G[v][i] != path[v]:
-                    mini = min(mini, low[G[v][i]])
+        if dziecko_w_dfs != -1:
+            low[v] = min(low[v], low[dziecko_w_dfs])
 
-            if mini == low[v]:
-                print(path[v], v)
-
-            low[v] = mini
+        for i in range(len(G[v])):
+            if G[v][i] != parent and G[v][i] != dziecko_w_dfs:   
+                    low[v] = min(low[v], dist[G[v][i]])
 
 
     visited = [False for _ in range(len(G))]
+    dystans = 1
 
     for i in range(len(G)):
 
-        if visited[i] == False:
-            DFSVisit(G, i)
-
-    return low, path
+        if G[i] != [] and visited[i] == False:
+            DFSVisit(G, i, -1)
 
 def Mosty( G ):
 
-    path = []
-    low = []
+    dist = [float('inf')] * len(G)
+    low = [float('inf')] * len(G)
 
-    low, path = DFS_first( G )#Pierwsze przejscie nadaje "DFS-ową kolejnosc i liczy rodzicow dla kazdego wierzcholka"
+    DFS(G, dist, low)
 
-    DFS_second(G, path, low)
+    print(low)
+
+    return low
 
 
 G = [
