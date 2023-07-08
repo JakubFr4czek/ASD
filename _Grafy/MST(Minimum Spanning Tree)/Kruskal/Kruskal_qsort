@@ -1,0 +1,43 @@
+from collections import deque
+
+def findSet(parent, x):
+    #Bo korzen sie zapetla do samego siebie
+    if parent[x] != x:
+        #kompresja sciezki
+        parent[x] = findSet(parent, parent[x])
+    return parent[x]
+
+def Union(parent, rank, x, y):
+
+    x = findSet(parent, x)
+    y = findSet(parent, y)
+
+    if rank[x] > rank[y]:
+        parent[y] = x
+    else:
+        parent[x] = y
+
+        if rank[x] == rank[y]:
+            rank[y] += 1
+
+def Kruskal(G, L):
+
+    G.sort(key= lambda temp: temp[2])
+
+    A = deque()
+
+    parent = [i for i in range(len(G))]
+    rank = [0 for _ in range(len(G))]
+
+    for i in range(len(G)):
+        
+        e1, e2, weight = G[i]
+
+        k1 = findSet(parent, e1)
+        k2 = findSet(parent, e2)
+
+        if k1 != k2:
+            A.append( G[i] )
+            Union(parent, rank, e1, e2)
+    
+    return A

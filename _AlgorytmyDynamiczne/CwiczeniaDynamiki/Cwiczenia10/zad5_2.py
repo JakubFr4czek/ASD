@@ -21,13 +21,11 @@ def lis(A):
 
         if idx == len(last): last.append(A[i])
         else:
-            print(idx) 
-            print(last, len(last))
-            print(A[i])
             last[idx]=A[i] 
 
+        print(last)
 
     return len(last)
 
 
-print(lis([2, 7, 3, 5, 10, 7]))
+print(lis([2, 3, 7, 1, 8, 6, 11]))
