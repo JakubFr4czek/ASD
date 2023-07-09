@@ -17,8 +17,8 @@ def Dijkstra(G, v):
 
         for i in range(len(G[temp])):
 
-            if distance[G[temp][i][0]] > distance[temp] + G[temp][i][1]:
-                distance[G[temp][i][0]] = distance[temp] + G[temp][i][1]
+            if distance[G[temp][i][0]] > priotity + G[temp][i][1]:
+                distance[G[temp][i][0]] = priotity + G[temp][i][1]
                 queue.put((distance[G[temp][i][0]], G[temp][i][0]))
                 path[G[temp][i][0]] = temp
 
