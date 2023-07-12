@@ -32,6 +32,7 @@ def knapsack(W, P, c): #Weight(array), Price(array), capacity(variable)
 
 P = [1, 2, 5 ,6]
 W = [2, 3, 4, 5]
+
 c = 8
 
 print(knapsack(W, P, c))
