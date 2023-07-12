@@ -2,7 +2,8 @@ from queue import PriorityQueue
 
 def Dijkstra(G, v):
 
-    distance = [float('inf') for _ in range(len(G))]
+    distance = [float('inf')] * len(G)
+    path = [-1] * len(G)
     queue = PriorityQueue()
 
     distance[v] = 0
@@ -21,12 +22,16 @@ def Dijkstra(G, v):
 
             if  priority + G[temp][i] < distance[i]:
                 distance[i] = priority + G[temp][i]
+                path[i] = temp
                 
                 queue.put((distance[i], i, temp))
             else:
                 #print(temp, G[temp][i][0], priority, distance[G[temp][i][0]], distance[G[temp][i][0]] + priority + G[temp][i][1])
-                mini = min(mini, distance[i] + priority + G[temp][i])
-
+                
+                if distance[i] + priority + G[temp][i] < mini:
+                    mini = distance[i] + priority + G[temp][i]
+                    print(path)
+                    print(temp)
     return mini
 
 G = [
@@ -38,4 +43,4 @@ G = [
 ]
 
 for i in range(len(G)):
-    print(Dijkstra(G, i))
+    print(Dijkstra(G, i), "yummy")

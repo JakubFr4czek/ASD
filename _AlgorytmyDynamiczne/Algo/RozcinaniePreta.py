@@ -14,9 +14,7 @@ def pret(T, d):
 
                 if dp[T[j][0]] + dp[i - T[j][0]] > dp[i]:
                     dp[i] = dp[T[j][0]] + dp[i - T[j][0]]
-
-
-
+                    
     print(dp)
 
 T = [ (3,3), (1,1), (5,8), (7,12) ] #(dl, warotsc)
