@@ -66,6 +66,8 @@ def Atom(M, x1, y1, d1):
             #print((x_pos, y_pos))
 
             return True
+        
+        print(x_pos,y_pos)
 
         visited[x_pos][y_pos] = True
         if D[x_pos][y_pos] < d1:

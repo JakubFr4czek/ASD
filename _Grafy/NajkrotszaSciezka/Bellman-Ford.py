@@ -32,7 +32,6 @@ def Bellman_Ford(G, v):
 
 
 
-
 G = [
 
     [(1,1), (2,8)],
@@ -47,4 +46,3 @@ G = [
 
 ]
 
-print(Bellman_Ford(G, 0))
